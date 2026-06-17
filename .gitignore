@@ -1,0 +1,24 @@
+# Dados brutos (arquivos grandes da CVM — baixar manualmente)
+data/raw/
+
+# Dados processados (gerados pelos notebooks)
+data/processed/
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+.venv/
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# macOS
+.DS_Store
