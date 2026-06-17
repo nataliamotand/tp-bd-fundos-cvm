@@ -12,7 +12,7 @@ Modelo ER → Modelo Relacional → SQL (DDL + carga) → Consultas e EDA.
 ## Fontes de dados
 
 | Base | Descrição | Portal |
-
+|------|-----------|--------|
 | `cad_fi.csv` | Cadastro de todos os fundos registrados na CVM | dados.cvm.gov.br/dataset/fi-cad |
 | `inf_diario_fi_2025MM.zip` | Informes diários de cada fundo (jan–dez 2025) | dados.cvm.gov.br/dados/FI/DOC/INF_DIARIO/DADOS/ |
 
@@ -33,6 +33,7 @@ tp-bd-fundos-cvm/
 ├── docs/
 │   ├── modelo_er.png           # diagrama ER/EER
 │   └── modelo_relacional.md    # esquema relacional normalizado
+├── download_dados.py   # script de download automático das bases
 ├── requirements.txt
 └── README.md
 ```
@@ -54,12 +55,18 @@ pip install -r requirements.txt
 
 ### 3. Baixar os dados
 
-Baixe manualmente os arquivos abaixo e coloque-os em `data/raw/`:
+Execute o script de download automático a partir da raiz do projeto:
+
+```bash
+python download_dados.py
+```
+
+O script baixa todos os arquivos necessários direto do portal da CVM, extrai os CSVs dos arquivos `.zip` e os organiza em `data/raw/`. Se algum arquivo já existir, ele é pulado automaticamente.
+
+Caso o download automático não funcione, os arquivos podem ser obtidos manualmente:
 
 - `cad_fi.csv` — disponível em `dados.cvm.gov.br/dataset/fi-cad`
 - `inf_diario_fi_202501.zip` até `inf_diario_fi_202512.zip` — disponíveis em `dados.cvm.gov.br/dados/FI/DOC/INF_DIARIO/DADOS/`
-
-Descompacte os arquivos `.zip` dentro de `data/raw/`.
 
 ### 4. Executar os notebooks na ordem
 
