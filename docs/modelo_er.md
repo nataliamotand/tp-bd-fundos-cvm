@@ -37,10 +37,15 @@ erDiagram
     PRESTADOR_SERVICO {
         string CNPJ PK
         string Nome
+    }
+    CLASSE_PRESTADOR {
+        string CNPJ_Classe FK
+        string CNPJ_Prestador FK
         string Tipo
     }
     INFORME_DIARIO {
         string CNPJ_Classe FK
+        string ID_Subclasse
         date DT_COMPTC
         float VL_TOTAL
         float VL_QUOTA
@@ -54,5 +59,6 @@ erDiagram
     GESTOR |o--o{ FUNDO : "gere"
     FUNDO ||--|{ CLASSE : "possui"
     CLASSE ||--o{ INFORME_DIARIO : "gera"
-    CLASSE }o--o{ PRESTADOR_SERVICO : "contrata"
+    CLASSE ||--o{ CLASSE_PRESTADOR : "contrata"
+    PRESTADOR_SERVICO ||--o{ CLASSE_PRESTADOR : "presta"
 ```

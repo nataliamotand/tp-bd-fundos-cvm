@@ -9,12 +9,21 @@ Análise da indústria de fundos de investimento brasileira com base nos dados a
 Comissão de Valores Mobiliários (CVM). O projeto percorre o ciclo completo de um banco de dados:
 Modelo ER → Modelo Relacional → SQL (DDL + carga) → Consultas e EDA.
 
+## Pipeline
+
+```
+dados (CVM) → download_dados.py → data/raw/
+            → notebooks/01_exploracao.ipynb      (entender os dados brutos)
+            → notebooks/02_carga_ddl.ipynb        (DDL + carga no DuckDB)
+            → notebooks/03_consultas_eda.ipynb    (consultas SQL + gráficos)
+```
+
 ## Fontes de dados
 
 | Base | Descrição | Portal |
 |------|-----------|--------|
-| `cad_fi.csv` | Cadastro de fundos — estrutura antiga | dados.cvm.gov.br/dataset/fi-cad |
-| `registro_fundo_classe.zip` | Cadastro de fundos, classes e subclasses (contém `registro_fundo.csv`, `registro_classe.csv` e `registro_subclasse.csv`) | dados.cvm.gov.br/dados/FI/CAD/DADOS/ |
+| `cad_fi.csv` | Cadastro de fundos — estrutura legada. Usado apenas na exploração inicial (notebook 01) para identificar a migração à RCVM175; não entra na carga final | dados.cvm.gov.br/dataset/fi-cad |
+| `registro_fundo_classe.zip` | Cadastro de fundos, classes e subclasses — Resolução CVM 175 (contém `registro_fundo.csv`, `registro_classe.csv` e `registro_subclasse.csv`). Fonte usada na carga final | dados.cvm.gov.br/dados/FI/CAD/DADOS/ |
 | `inf_diario_fi_2025MM.zip` | Informes diários de cada fundo (jan–dez 2025) | dados.cvm.gov.br/dados/FI/DOC/INF_DIARIO/DADOS/ |
 
 ## Estrutura do repositório
@@ -67,7 +76,7 @@ O script baixa todos os arquivos necessários direto do portal da CVM, extrai os
 Caso o download automático não funcione, os arquivos podem ser obtidos manualmente em `dados.cvm.gov.br/dados/FI/CAD/DADOS/`:
 
 - `cad_fi.csv` — cadastro de fundos (estrutura legada)
-- `registro_fundo_classe.zip` — cadastro de fundos, classes e subclasses; extrair os três CSVs internos
+- `registro_fundo_classe.zip` — cadastro de fundos, classes e subclasses (Resolução CVM 175); extrair os três CSVs internos
 - `inf_diario_fi_202501.zip` até `inf_diario_fi_202512.zip` — disponíveis em `dados.cvm.gov.br/dados/FI/DOC/INF_DIARIO/DADOS/`
 
 ### 4. Executar os notebooks na ordem
